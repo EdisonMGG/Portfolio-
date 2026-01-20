@@ -87,3 +87,60 @@ document.querySelectorAll('.section, .hero-content, .hero-image-wrapper').forEac
     section.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
     observer.observe(section);
 });
+
+// Contact Form & Modal Logic
+const contactForm = document.getElementById('contactForm');
+const hiddenIframe = document.getElementById('hidden_iframe');
+const thankYouModal = document.getElementById('thankYouModal');
+const closeModalBtn = document.getElementById('closeModalBtn');
+let submitted = false;
+
+if (contactForm) {
+    contactForm.addEventListener('submit', () => {
+        submitted = true;
+        // Button loading state could be added here
+        const btn = contactForm.querySelector('button[type="submit"]');
+        if (btn) {
+            btn.innerHTML = 'Sending...';
+            btn.style.opacity = '0.7';
+            btn.style.pointerEvents = 'none';
+        }
+    });
+}
+
+if (hiddenIframe) {
+    hiddenIframe.addEventListener('load', () => {
+        if (submitted) {
+            // Show modal
+            if (thankYouModal) {
+                thankYouModal.style.display = 'flex';
+            }
+
+            // Reset form
+            if (contactForm) {
+                contactForm.reset();
+                const btn = contactForm.querySelector('button[type="submit"]');
+                if (btn) {
+                    btn.innerHTML = 'Send Message';
+                    btn.style.opacity = '1';
+                    btn.style.pointerEvents = 'auto';
+                }
+            }
+
+            submitted = false;
+        }
+    });
+}
+
+if (closeModalBtn && thankYouModal) {
+    closeModalBtn.addEventListener('click', () => {
+        thankYouModal.style.display = 'none';
+    });
+
+    // Close on click outside
+    window.addEventListener('click', (e) => {
+        if (e.target === thankYouModal) {
+            thankYouModal.style.display = 'none';
+        }
+    });
+}
