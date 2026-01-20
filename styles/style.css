@@ -436,6 +436,130 @@ h6 {
     margin-bottom: 0.5rem;
 }
 
+/* Snake Animation Divider */
+.snake-divider {
+    padding: 2rem 0;
+}
+
+.snake-visual-container {
+    height: 100px;
+    background: rgba(11, 17, 33, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(5px);
+}
+
+.snake-grid-bg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 20px 20px;
+}
+
+.snake-runner {
+    position: absolute;
+    top: 50%;
+    left: -50px;
+    width: 60px;
+    height: 14px;
+    background: #ef4444;
+    /* Red Snake */
+    border-radius: 4px 10px 10px 4px;
+    transform: translateY(-50%);
+    box-shadow: 0 0 10px rgba(239, 68, 68, 0.5);
+    animation: snakeRun 6s linear infinite;
+    z-index: 2;
+}
+
+/* Eyes */
+.snake-runner::after {
+    content: '';
+    position: absolute;
+    right: 4px;
+    top: 3px;
+    width: 3px;
+    height: 3px;
+    background: #000;
+    border-radius: 50%;
+    box-shadow: 0 5px 0 #000;
+}
+
+/* Tongue */
+.snake-runner::before {
+    content: '';
+    position: absolute;
+    right: -4px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-left: 5px solid #ef4444;
+    border-top: 3px solid transparent;
+    border-bottom: 3px solid transparent;
+}
+
+.snake-food {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #22c55e;
+    /* Green Apple */
+    font-size: 1.2rem;
+    z-index: 1;
+    animation: appleEat 6s linear infinite;
+}
+
+@keyframes snakeRun {
+    0% {
+        left: -60px;
+        width: 60px;
+    }
+
+    40% {
+        width: 60px;
+    }
+
+    /* Normal length */
+    45% {
+        width: 70px;
+    }
+
+    /* Stretch slightly when eating */
+    50% {
+        left: 50%;
+        width: 80px;
+    }
+
+    /* Grow after eating */
+    100% {
+        left: 110%;
+        width: 80px;
+    }
+}
+
+@keyframes appleEat {
+
+    0%,
+    48% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+
+    50% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0);
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
 /* Experience Section */
 .timeline {
     position: relative;
